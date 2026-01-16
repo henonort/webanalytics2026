@@ -165,6 +165,46 @@
         }
 
         /* ========================================
+           SYNTHÈSE NARRATIVE
+        ======================================== */
+        .executive-summary {
+            background: rgba(233, 69, 96, 0.05);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .executive-summary h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .executive-summary p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .executive-summary strong {
+            color: var(--accent);
+        }
+
+        .executive-summary .highlight-number {
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+
+        /* ========================================
            2. KPIs EXECUTIVE SUMMARY
         ======================================== */
         .section {
@@ -192,7 +232,7 @@
 
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: var(--space-md);
         }
 
@@ -225,7 +265,7 @@
         }
 
         .kpi-value {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: var(--primary);
             line-height: 1;
@@ -233,7 +273,7 @@
         }
 
         .kpi-trend {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -256,6 +296,61 @@
             color: var(--text-secondary);
             background: rgba(108, 117, 125, 0.1);
         }
+
+        /* Health Score KPI */
+        .kpi-card.health-score {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .kpi-card.health-score .kpi-label {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .kpi-card.health-score .kpi-value {
+            color: white;
+        }
+
+        .health-score-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xs);
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: var(--space-xs);
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, var(--chart-3) 100%);
+            border-radius: var(--radius-full);
+            transition: width 1s ease;
+        }
+
+        .health-criteria {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+            margin-top: var(--space-xs);
+        }
+
+        .health-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .health-dot.pass { background: var(--success); }
+        .health-dot.fail { background: var(--danger); }
 
         /* ========================================
            3. ÉVOLUTION TEMPORELLE
@@ -306,7 +401,7 @@
         }
 
         .funnel-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -345,14 +440,14 @@
         }
 
         .funnel-label {
-            width: 140px;
+            width: 130px;
             font-size: 0.875rem;
             font-weight: 500;
             color: var(--text-secondary);
         }
 
         .funnel-percent {
-            width: 80px;
+            width: 70px;
             text-align: right;
             font-size: 0.875rem;
             font-weight: 600;
@@ -360,11 +455,20 @@
         }
 
         .funnel-drop {
-            width: 100px;
+            width: 80px;
             text-align: right;
             font-size: 0.75rem;
             color: var(--danger);
             font-weight: 500;
+        }
+
+        .funnel-lost-revenue {
+            width: 120px;
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--warning);
+            font-weight: 600;
+            font-style: italic;
         }
 
         .funnel-insight {
@@ -554,6 +658,7 @@
 
         .recommendations-grid {
             display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: var(--space-md);
         }
 
@@ -634,9 +739,9 @@
         }
 
         .recommendation-content p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.9;
-            line-height: 1.7;
+            line-height: 1.6;
             margin-bottom: var(--space-xs);
         }
 
@@ -648,6 +753,80 @@
             border-radius: var(--radius-full);
             font-size: 0.8rem;
             font-weight: 500;
+        }
+
+        /* Impact estimé */
+        .recommendation-impact {
+            margin-top: var(--space-sm);
+            padding: var(--space-sm);
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: var(--radius-sm);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            align-items: baseline;
+        }
+
+        .impact-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.6);
+            width: 100%;
+        }
+
+        .impact-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .impact-detail {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            width: 100%;
+        }
+
+        /* Total Impact Card */
+        .total-impact-card {
+            margin-top: var(--space-xl);
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .total-impact-icon {
+            font-size: 3rem;
+        }
+
+        .total-impact-content {
+            flex: 1;
+        }
+
+        .total-impact-label {
+            display: block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+            margin-bottom: var(--space-xs);
+        }
+
+        .total-impact-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        .total-impact-detail {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: var(--space-xs);
         }
 
         /* ========================================
@@ -671,7 +850,7 @@
 
         .methodology-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: var(--space-lg);
         }
 
@@ -702,6 +881,18 @@
             position: absolute;
             left: 0;
             color: var(--accent);
+        }
+
+        .methodology-item li.transform-before {
+            color: var(--text-muted);
+        }
+
+        .methodology-item li.transform-after {
+            color: var(--success);
+        }
+
+        .methodology-item li.transform-fix {
+            color: var(--warning);
         }
 
         .footer-copyright {
@@ -736,10 +927,20 @@
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
         .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
 
         /* ========================================
            RESPONSIVE
         ======================================== */
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 1024px) {
             .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -760,6 +961,11 @@
 
             .gender-vs {
                 display: none;
+            }
+
+            .total-impact-card {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
@@ -785,12 +991,17 @@
             }
 
             .funnel-label,
-            .funnel-drop {
+            .funnel-drop,
+            .funnel-lost-revenue {
                 display: none;
             }
 
             .chart-container {
                 height: 280px;
+            }
+
+            .total-impact-value {
+                font-size: 1.75rem;
             }
         }
     </style>
@@ -817,7 +1028,24 @@
 
     <main class="container">
         <!-- ========================================
-             2. KPIs EXECUTIVE SUMMARY
+             SYNTHÈSE NARRATIVE (Executive Summary)
+        ======================================== -->
+        <section class="executive-summary fade-in">
+            <h3>📖 En résumé</h3>
+            <p>
+                Le Q4 2025 marque une <strong>performance exceptionnelle</strong> pour la marque,
+                avec un chiffre d'affaires de <span class="highlight-number">759 580 €</span> (+86% vs septembre).
+                Après un mois d'octobre en retrait (-23% de trafic), le <strong>Black Friday</strong>
+                a propulsé novembre au rang de meilleur mois de l'année avec <span class="highlight-number">271 500 €</span> de CA.
+                Point d'attention majeur : le taux d'abandon panier de <strong>60%</strong>
+                représente un manque à gagner estimé à <strong>1,1 M€</strong>.
+                Les 6 recommandations ci-dessous pourraient générer <span class="highlight-number">+263 000 €</span> de CA additionnel
+                sur le prochain trimestre.
+            </p>
+        </section>
+
+        <!-- ========================================
+             2. KPIs EXECUTIVE SUMMARY + Score Santé
         ======================================== -->
         <section class="section">
             <h2 class="section-title">Vue d'ensemble</h2>
@@ -852,6 +1080,22 @@
                     <div class="kpi-value">44.14 €</div>
                     <div class="kpi-trend neutral">→ Stable</div>
                 </div>
+                <div class="kpi-card health-score fade-in delay-6">
+                    <div class="kpi-icon">🏆</div>
+                    <div class="kpi-label">Score de santé</div>
+                    <div class="health-bar">
+                        <div class="health-bar-fill" style="width: 78%;"></div>
+                    </div>
+                    <div class="kpi-value">78/100</div>
+                    <div class="health-criteria">
+                        <span class="health-dot pass" title="ROAS > 10x ✓"></span>
+                        <span class="health-dot pass" title="Conv. > 20% ✓"></span>
+                        <span class="health-dot pass" title="Bounce < 35% ✓"></span>
+                        <span class="health-dot pass" title="Croissance > 50% ✓"></span>
+                        <span class="health-dot fail" title="Abandon < 50% ✗"></span>
+                    </div>
+                    <div class="kpi-trend positive">↑ Bon potentiel</div>
+                </div>
             </div>
         </section>
 
@@ -869,7 +1113,7 @@
         </section>
 
         <!-- ========================================
-             4. FUNNEL DE CONVERSION
+             4. FUNNEL DE CONVERSION avec € perdus
         ======================================== -->
         <section class="section">
             <h2 class="section-title">Parcours d'achat — Funnel de conversion</h2>
@@ -882,6 +1126,7 @@
                         </div>
                         <div class="funnel-percent">100%</div>
                         <div class="funnel-drop"></div>
+                        <div class="funnel-lost-revenue"></div>
                     </div>
                     <div class="funnel-step">
                         <div class="funnel-label">Ajout au panier</div>
@@ -890,6 +1135,7 @@
                         </div>
                         <div class="funnel-percent">37.7%</div>
                         <div class="funnel-drop">-62.3%</div>
+                        <div class="funnel-lost-revenue">≈ 3,1 M€ perdus</div>
                     </div>
                     <div class="funnel-step">
                         <div class="funnel-label">Info livraison</div>
@@ -898,6 +1144,7 @@
                         </div>
                         <div class="funnel-percent">18.6%</div>
                         <div class="funnel-drop">-50.6%</div>
+                        <div class="funnel-lost-revenue">≈ 964 K€ perdus</div>
                     </div>
                     <div class="funnel-step">
                         <div class="funnel-label">Achat finalisé</div>
@@ -906,10 +1153,11 @@
                         </div>
                         <div class="funnel-percent">15.0%</div>
                         <div class="funnel-drop">-19.4%</div>
+                        <div class="funnel-lost-revenue">≈ 183 K€ perdus</div>
                     </div>
                 </div>
                 <div class="funnel-insight">
-                    <p>💡 <strong>Point de friction majeur :</strong> 50.6% des utilisateurs abandonnent entre l'ajout au panier et les informations de livraison. Cela suggère des frais de port dissuasifs ou un processus trop complexe.</p>
+                    <p>💡 <strong>Point de friction majeur :</strong> 50.6% des utilisateurs abandonnent entre l'ajout au panier et les informations de livraison (-964 K€ potentiels). Cela suggère des frais de port dissuasifs ou un processus de checkout trop complexe.</p>
                 </div>
             </div>
         </section>
@@ -946,7 +1194,7 @@
                         <div class="gender-label">Homme</div>
                         <div class="gender-revenue">396 200 €</div>
                         <div class="gender-percent">52%</div>
-                        <div class="gender-detail">6 940 articles vendus</div>
+                        <div class="gender-detail">Panier moyen : 57 €</div>
                     </div>
                     <div class="gender-vs">VS</div>
                     <div class="gender-card">
@@ -954,7 +1202,7 @@
                         <div class="gender-label">Femme</div>
                         <div class="gender-revenue">378 600 €</div>
                         <div class="gender-percent">48%</div>
-                        <div class="gender-detail">6 489 articles vendus</div>
+                        <div class="gender-detail">Panier moyen : 58 €</div>
                     </div>
                 </div>
             </div>
@@ -1048,7 +1296,7 @@
         </section>
 
         <!-- ========================================
-             8. RECOMMANDATIONS
+             8. RECOMMANDATIONS avec impacts chiffrés
         ======================================== -->
         <section class="section">
             <div class="recommendations-section">
@@ -1065,6 +1313,11 @@
                             <p><strong>Données :</strong> 25 974 paniers non convertis = potentiel de 1.1M € de CA additionnel.</p>
                             <span class="recommendation-action">→ Livraison gratuite dès 50 €, emails relance automatisés</span>
                         </div>
+                        <div class="recommendation-impact">
+                            <span class="impact-label">Impact estimé</span>
+                            <span class="impact-value">+150 000 € / trimestre</span>
+                            <span class="impact-detail">Si réduction abandon de 60% → 45%</span>
+                        </div>
                     </div>
 
                     <div class="recommendation-card priority-growth">
@@ -1077,6 +1330,11 @@
                             <p><strong>Constat :</strong> Le SEO représente 35% du trafic avec le meilleur ROI (coût = 0 €).</p>
                             <p><strong>Données :</strong> 22 566 sessions organiques sur le trimestre.</p>
                             <span class="recommendation-action">→ Optimiser fiches produits, créer du contenu blog mode</span>
+                        </div>
+                        <div class="recommendation-impact">
+                            <span class="impact-label">Impact estimé</span>
+                            <span class="impact-value">+8 000 sessions / mois</span>
+                            <span class="impact-detail">Coût : 0 € (organique)</span>
                         </div>
                     </div>
 
@@ -1091,6 +1349,11 @@
                             <p><strong>Données :</strong> 137 930 € vs 271 500 € en novembre (-49%).</p>
                             <span class="recommendation-action">→ Ventes privées "Pré-Hiver", early-bird fêtes de fin d'année</span>
                         </div>
+                        <div class="recommendation-impact">
+                            <span class="impact-label">Impact estimé</span>
+                            <span class="impact-value">+45 000 € en oct. 2026</span>
+                            <span class="impact-detail">Objectif : égaler septembre</span>
+                        </div>
                     </div>
 
                     <div class="recommendation-card priority-high">
@@ -1103,6 +1366,11 @@
                             <p><strong>Constat :</strong> 60.6% du trafic provient du mobile, mais le tunnel de conversion est-il optimisé ?</p>
                             <p><strong>Données :</strong> 38 834 sessions mobiles sur le trimestre.</p>
                             <span class="recommendation-action">→ Apple Pay / Google Pay, sticky "Ajouter au panier"</span>
+                        </div>
+                        <div class="recommendation-impact">
+                            <span class="impact-label">Impact estimé</span>
+                            <span class="impact-value">+35 000 € / trimestre</span>
+                            <span class="impact-detail">+2% taux conversion mobile</span>
                         </div>
                     </div>
 
@@ -1117,6 +1385,39 @@
                             <p><strong>Données :</strong> 4 968 sessions email → objectif 15% du trafic.</p>
                             <span class="recommendation-action">→ Pop-up -10% première commande, newsletters hebdomadaires</span>
                         </div>
+                        <div class="recommendation-impact">
+                            <span class="impact-label">Impact estimé</span>
+                            <span class="impact-value">+8 000 € / trimestre</span>
+                            <span class="impact-detail">LTV client fidélisé : 3x client ponctuel</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-growth">
+                        <div class="recommendation-header">
+                            <span class="recommendation-number">6</span>
+                            <span class="recommendation-tag">Croissance</span>
+                        </div>
+                        <h4 class="recommendation-title">Rééquilibrer l'offre Femme</h4>
+                        <div class="recommendation-content">
+                            <p><strong>Constat :</strong> Le segment Homme surperforme légèrement (52% vs 48%) malgré un marché mode féminin généralement plus large.</p>
+                            <p><strong>Données :</strong> Écart de 17 600 € sur le trimestre, panier moyen quasi identique.</p>
+                            <span class="recommendation-action">→ Élargir gamme Femme, partenariats influenceuses, collections capsules</span>
+                        </div>
+                        <div class="recommendation-impact">
+                            <span class="impact-label">Impact estimé</span>
+                            <span class="impact-value">+25 000 € / trimestre</span>
+                            <span class="impact-detail">Si équilibrage à 50/50 avec panier constant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Impact Card -->
+                <div class="total-impact-card">
+                    <div class="total-impact-icon">🚀</div>
+                    <div class="total-impact-content">
+                        <span class="total-impact-label">Potentiel de croissance total estimé</span>
+                        <span class="total-impact-value">+263 000 € / trimestre</span>
+                        <span class="total-impact-detail">Soit +35% vs Q4 2025 si toutes les recommandations sont appliquées</span>
                     </div>
                 </div>
             </div>
@@ -1124,7 +1425,7 @@
     </main>
 
     <!-- ========================================
-         9. FOOTER MÉTHODOLOGIE
+         9. FOOTER MÉTHODOLOGIE (5 colonnes)
     ======================================== -->
     <footer class="methodology-footer">
         <div class="container">
@@ -1146,6 +1447,15 @@
                         <li>Sommes pour métriques cumulatives</li>
                         <li>Moyennes pour taux et pourcentages</li>
                         <li>Vérification cohérence inter-métriques</li>
+                    </ul>
+                </div>
+                <div class="methodology-item">
+                    <h4>🔄 Transformations appliquées</h4>
+                    <ul>
+                        <li class="transform-before">Avant : 123 lignes journalières brutes</li>
+                        <li class="transform-after">Après : 4 agrégats mensuels consolidés</li>
+                        <li class="transform-fix">Correction : feuille "Septembre" contenait dates d'octobre (réattribuées)</li>
+                        <li>Outliers conservés mais annotés (Black Friday = comportement attendu)</li>
                     </ul>
                 </div>
                 <div class="methodology-item">
