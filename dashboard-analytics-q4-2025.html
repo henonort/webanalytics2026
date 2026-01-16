@@ -5,24 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Analytics Q4 2025 - Marque Prêt-à-Porter</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --primary-light: #2d5a8a;
-            --secondary: #64748b;
-            --accent: #0ea5e9;
-            --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --accent-red: #ef4444;
-            --accent-purple: #8b5cf6;
-            --bg-light: #f8fafc;
+            /* Couleurs principales */
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --accent-secondary: #0f3460;
+
+            /* Neutres */
+            --bg-light: #f8f9fa;
             --bg-card: #ffffff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --radius: 12px;
+            --text-primary: #1a1a2e;
+            --text-secondary: #6c757d;
+            --text-muted: #adb5bd;
+            --border: #e9ecef;
+
+            /* Indicateurs de performance */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+
+            /* Graphiques */
+            --chart-1: #e94560;
+            --chart-2: #0f3460;
+            --chart-3: #00d9c0;
+            --chart-4: #f39c12;
+            --chart-5: #9b59b6;
+
+            /* Typographie */
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+
+            /* Espacements */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+
+            /* Autres */
+            --container-max: 1400px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
         }
 
         * {
@@ -32,302 +65,536 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-light);
-            color: var(--text-dark);
+            font-family: var(--font-body);
+            font-size: 1rem;
             line-height: 1.6;
+            background: var(--bg-light);
+            color: var(--text-primary);
         }
 
         .container {
-            max-width: 1400px;
+            max-width: var(--container-max);
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 var(--space-md);
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        /* ========================================
+           1. HEADER HERO
+        ======================================== */
+        .header-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 40px 0;
-            margin-bottom: 30px;
+            padding: var(--space-xl) 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        header .container {
+        .header-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: var(--space-md);
+            position: relative;
+            z-index: 1;
         }
 
-        .header-title h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .header-title p {
-            opacity: 0.9;
+        .header-brand {
+            font-family: var(--font-display);
             font-size: 1rem;
+            font-weight: 600;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        .header-badge {
-            background: rgba(255,255,255,0.15);
-            padding: 12px 24px;
-            border-radius: 50px;
+        .header-period {
+            background: rgba(255,255,255,0.1);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
             backdrop-filter: blur(10px);
         }
 
-        .header-badge span {
-            font-weight: 600;
+        .header-title {
+            text-align: center;
+            margin-top: var(--space-lg);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Section titles */
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
+        .header-title h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--space-xs);
+        }
+
+        .header-title .subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-md);
+        }
+
+        .header-insight {
             display: inline-block;
+            background: rgba(233,69,96,0.2);
+            border: 1px solid rgba(233,69,96,0.4);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-top: var(--space-sm);
         }
 
-        /* KPI Cards */
+        .header-insight span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           2. KPIs EXECUTIVE SUMMARY
+        ======================================== */
+        .section {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            margin-left: var(--space-sm);
+        }
+
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-md);
         }
 
         .kpi-card {
             background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 24px;
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
             box-shadow: var(--shadow);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
         }
 
         .kpi-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
         }
 
-        .kpi-card .label {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+        .kpi-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
         }
 
-        .kpi-card .value {
+        .kpi-value {
             font-size: 2rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 8px;
+            line-height: 1;
+            margin-bottom: var(--space-xs);
         }
 
-        .kpi-card .trend {
+        .kpi-trend {
             font-size: 0.875rem;
-            display: flex;
+            font-weight: 600;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
         }
 
-        .trend.positive { color: var(--accent-green); }
-        .trend.negative { color: var(--accent-red); }
-
-        .kpi-card.highlight {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
+        .kpi-trend.positive {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
         }
 
-        .kpi-card.highlight .label { color: rgba(255,255,255,0.8); }
-        .kpi-card.highlight .value { color: white; }
-
-        /* Chart sections */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
+        .kpi-trend.negative {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
         }
 
-        @media (max-width: 1024px) {
-            .charts-grid { grid-template-columns: 1fr; }
+        .kpi-trend.neutral {
+            color: var(--text-secondary);
+            background: rgba(108, 117, 125, 0.1);
         }
 
+        /* ========================================
+           3. ÉVOLUTION TEMPORELLE
+        ======================================== */
         .chart-card {
             background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 24px;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
             box-shadow: var(--shadow);
         }
 
         .chart-card h3 {
-            font-size: 1rem;
+            font-family: var(--font-body);
+            font-size: 1.125rem;
             font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 20px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
         }
 
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 350px;
         }
 
-        /* Funnel */
+        .chart-annotation {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--warning);
+            color: white;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ========================================
+           4. FUNNEL DE CONVERSION
+        ======================================== */
         .funnel-section {
             background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 30px;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
         }
 
         .funnel-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .funnel-step {
-            text-align: center;
-            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            gap: var(--space-md);
+        }
+
+        .funnel-bar-wrapper {
             flex: 1;
-            min-width: 150px;
+            position: relative;
         }
 
         .funnel-bar {
-            height: 80px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--primary-light) 100%);
-            border-radius: 8px;
+            height: 50px;
+            background: linear-gradient(90deg, var(--accent-secondary) 0%, var(--chart-3) 100%);
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
+            padding-right: var(--space-md);
             color: white;
             font-weight: 700;
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-            position: relative;
+            font-size: 1.125rem;
+            transition: transform 0.3s ease;
         }
 
-        .funnel-step:nth-child(1) .funnel-bar { width: 100%; }
-        .funnel-step:nth-child(2) .funnel-bar { width: 85%; margin: 0 auto 12px; }
-        .funnel-step:nth-child(3) .funnel-bar { width: 70%; margin: 0 auto 12px; }
-        .funnel-step:nth-child(4) .funnel-bar { width: 55%; margin: 0 auto 12px; background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%); }
+        .funnel-step:last-child .funnel-bar {
+            background: linear-gradient(90deg, var(--success) 0%, #059669 100%);
+        }
+
+        .funnel-bar:hover {
+            transform: scaleX(1.02);
+        }
 
         .funnel-label {
+            width: 140px;
             font-size: 0.875rem;
-            color: var(--text-muted);
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .funnel-percent {
+            width: 80px;
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .funnel-drop {
+            width: 100px;
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--danger);
             font-weight: 500;
         }
 
-        .funnel-rate {
-            font-size: 0.75rem;
-            color: var(--accent-orange);
-            margin-top: 4px;
-            font-weight: 600;
+        .funnel-insight {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
         }
 
-        .funnel-arrow {
-            font-size: 1.5rem;
-            color: var(--border);
-            padding: 0 10px;
-        }
-
-        /* Insights section */
-        .insights-section {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .insights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .insight-card {
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent);
-            background: var(--bg-light);
-        }
-
-        .insight-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .insight-card p {
+        .funnel-insight p {
             font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.7;
+            color: var(--text-primary);
         }
 
-        .insight-card.success { border-left-color: var(--accent-green); }
-        .insight-card.warning { border-left-color: var(--accent-orange); }
-        .insight-card.danger { border-left-color: var(--accent-red); }
+        .funnel-insight strong {
+            color: var(--warning);
+        }
 
-        /* Recommendations */
+        /* ========================================
+           5. DEUX COLONNES (Canaux + Devices)
+        ======================================== */
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .small-chart-container {
+            height: 280px;
+            position: relative;
+        }
+
+        /* ========================================
+           6. SEGMENT HOMME/FEMME
+        ======================================== */
+        .gender-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow);
+        }
+
+        .gender-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: var(--space-lg);
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .gender-card {
+            text-align: center;
+            padding: var(--space-lg);
+        }
+
+        .gender-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .gender-label {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .gender-revenue {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .gender-card:first-child .gender-revenue {
+            color: var(--accent-secondary);
+        }
+
+        .gender-card:last-child .gender-revenue {
+            color: var(--chart-5);
+        }
+
+        .gender-percent {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .gender-detail {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .gender-vs {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: var(--space-sm);
+        }
+
+        /* ========================================
+           7. TABLEAU RÉCAPITULATIF
+        ======================================== */
+        .table-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            font-weight: 600;
+            text-align: left;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-light);
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .data-table th:first-child {
+            border-radius: var(--radius-sm) 0 0 0;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 var(--radius-sm) 0 0;
+        }
+
+        .data-table td {
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(233, 69, 96, 0.03);
+        }
+
+        .data-table td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .data-table .highlight-best {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .data-table .highlight-worst {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .data-table tfoot td {
+            font-weight: 700;
+            color: var(--text-primary);
+            background: var(--bg-light);
+            border-top: 2px solid var(--border);
+        }
+
+        /* ========================================
+           8. INSIGHTS & RECOMMANDATIONS
+        ======================================== */
         .recommendations-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            border-radius: var(--radius);
-            padding: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
             color: white;
-            margin-bottom: 40px;
         }
 
         .recommendations-section .section-title {
             color: white;
-            border-bottom-color: rgba(255,255,255,0.3);
         }
 
-        .recommendations-list {
+        .recommendations-section .section-title::after {
+            background: linear-gradient(90deg, rgba(233,69,96,0.6) 0%, transparent 100%);
+        }
+
+        .recommendations-grid {
             display: grid;
-            gap: 16px;
+            gap: var(--space-md);
         }
 
-        .recommendation-item {
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 20px;
+        .recommendation-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: var(--radius-md);
+            padding: var(--space-md) var(--space-lg);
             backdrop-filter: blur(10px);
+            border-left: 4px solid var(--accent);
+            transition: transform 0.2s ease, background 0.2s ease;
         }
 
-        .recommendation-item h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
+        .recommendation-card:hover {
+            transform: translateX(8px);
+            background: rgba(255,255,255,0.12);
+        }
+
+        .recommendation-card.priority-high {
+            border-left-color: var(--accent);
+        }
+
+        .recommendation-card.priority-growth {
+            border-left-color: var(--success);
+        }
+
+        .recommendation-card.priority-optimize {
+            border-left-color: var(--chart-3);
+        }
+
+        .recommendation-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
         }
 
-        .recommendation-item p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            line-height: 1.7;
-        }
-
-        .rec-number {
+        .recommendation-number {
+            width: 32px;
+            height: 32px;
             background: white;
             color: var(--primary);
-            width: 28px;
-            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -336,39 +603,98 @@
             font-size: 0.875rem;
         }
 
-        /* Methodology footer */
-        .methodology-section {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
+        .recommendation-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
         }
 
-        .methodology-content {
+        .recommendation-card.priority-high .recommendation-tag {
+            background: rgba(233, 69, 96, 0.3);
+            color: #fca5a5;
+        }
+
+        .recommendation-card.priority-growth .recommendation-tag {
+            background: rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        .recommendation-card.priority-optimize .recommendation-tag {
+            background: rgba(0, 217, 192, 0.3);
+            color: #5eead4;
+        }
+
+        .recommendation-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .recommendation-content p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.7;
+            margin-bottom: var(--space-xs);
+        }
+
+        .recommendation-action {
+            display: inline-block;
+            margin-top: var(--space-xs);
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* ========================================
+           9. FOOTER MÉTHODOLOGIE
+        ======================================== */
+        .methodology-footer {
+            background: var(--secondary);
+            color: rgba(255,255,255,0.8);
+            padding: var(--space-xl) 0;
+            margin-top: var(--space-xl);
+        }
+
+        .methodology-footer .section-title {
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .methodology-footer .section-title::after {
+            background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+        }
+
+        .methodology-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
         }
 
         .methodology-item h4 {
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 10px;
+            color: white;
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
         }
 
         .methodology-item ul {
             list-style: none;
-            padding: 0;
         }
 
         .methodology-item li {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+            font-size: 0.8rem;
             padding: 6px 0;
-            padding-left: 20px;
+            padding-left: var(--space-sm);
             position: relative;
+            opacity: 0.8;
         }
 
         .methodology-item li::before {
@@ -378,576 +704,529 @@
             color: var(--accent);
         }
 
-        /* Footer */
-        footer {
+        .footer-copyright {
             text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        /* Anomaly badge */
-        .anomaly-badge {
-            display: inline-block;
-            background: var(--accent-orange);
-            color: white;
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-left: 10px;
-            font-weight: 600;
-        }
-
-        /* Data table */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.875rem;
-            margin-top: 15px;
-        }
-
-        .data-table th, .data-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .data-table th {
-            background: var(--bg-light);
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .data-table tr:hover {
-            background: var(--bg-light);
-        }
-
-        /* Small charts row */
-        .small-charts-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 900px) {
-            .small-charts-grid { grid-template-columns: 1fr; }
-        }
-
-        .small-chart-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .small-chart-card h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-dark);
-        }
-
-        .small-chart-container {
-            height: 200px;
-            position: relative;
-        }
-
-        /* Story section */
-        .story-section {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .story-timeline {
-            display: flex;
-            gap: 0;
-            position: relative;
-        }
-
-        .story-month {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .story-month::after {
-            content: "";
-            position: absolute;
-            top: 60px;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-green) 100%);
-            z-index: 0;
-        }
-
-        .story-month:last-child::after {
-            display: none;
-        }
-
-        .month-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .story-month h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .story-month p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .story-month .revenue-tag {
-            background: var(--accent-green);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(255,255,255,0.1);
             font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 10px;
+            opacity: 0.6;
         }
 
-        @media (max-width: 768px) {
-            .story-timeline {
-                flex-direction: column;
+        /* ========================================
+           ANIMATIONS
+        ======================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            .story-month::after {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+        @media (max-width: 1024px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .methodology-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gender-comparison {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .gender-vs {
                 display: none;
             }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .header-title h1 {
+                font-size: 1.75rem;
+            }
+
+            .kpi-value {
                 font-size: 1.5rem;
             }
-            .kpi-card .value {
-                font-size: 1.5rem;
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .methodology-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .funnel-label,
+            .funnel-drop {
+                display: none;
+            }
+
+            .chart-container {
+                height: 280px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <!-- ========================================
+         1. HEADER HERO
+    ======================================== -->
+    <header class="header-hero">
         <div class="container">
-            <div class="header-title">
-                <h1>Dashboard Analytics Q4 2025</h1>
-                <p>Audit Web Analytics - Marque de Pret-a-Porter</p>
+            <div class="header-content">
+                <div class="header-brand">Marque Prêt-à-Porter</div>
+                <div class="header-period">Q4 2025</div>
             </div>
-            <div class="header-badge">
-                <span>Septembre - Decembre 2025</span>
+            <div class="header-title">
+                <h1>Audit Performance E-Commerce</h1>
+                <p class="subtitle">Septembre — Décembre 2025</p>
+                <div class="header-insight">
+                    Une croissance de <span>+86%</span> du CA portée par le Black Friday
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- KPIs principaux -->
-        <section>
-            <h2 class="section-title">KPIs Cles du Trimestre</h2>
+        <!-- ========================================
+             2. KPIs EXECUTIVE SUMMARY
+        ======================================== -->
+        <section class="section">
+            <h2 class="section-title">Vue d'ensemble</h2>
             <div class="kpi-grid">
-                <div class="kpi-card highlight">
-                    <div class="label">Chiffre d'Affaires Total</div>
-                    <div class="value">759 580 EUR</div>
-                    <div class="trend positive">+86% vs Sept</div>
+                <div class="kpi-card fade-in delay-1">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-label">Chiffre d'affaires</div>
+                    <div class="kpi-value">759 580 €</div>
+                    <div class="kpi-trend positive">↑ +86% vs Sept</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="label">Sessions Totales</div>
-                    <div class="value">64 153</div>
-                    <div class="trend positive">+33% vs Sept</div>
+                <div class="kpi-card fade-in delay-2">
+                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-label">Utilisateurs</div>
+                    <div class="kpi-value">55 523</div>
+                    <div class="kpi-trend positive">↑ +46% vs Sept</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="label">Taux de Conversion</div>
-                    <div class="value">26.82%</div>
-                    <div class="trend positive">Excellent</div>
+                <div class="kpi-card fade-in delay-3">
+                    <div class="kpi-icon">🛒</div>
+                    <div class="kpi-label">Taux de conversion</div>
+                    <div class="kpi-value">26.8%</div>
+                    <div class="kpi-trend positive">↑ Excellent</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="label">ROAS Global</div>
-                    <div class="value">12.83x</div>
-                    <div class="trend positive">Tres performant</div>
+                <div class="kpi-card fade-in delay-4">
+                    <div class="kpi-icon">📈</div>
+                    <div class="kpi-label">ROAS</div>
+                    <div class="kpi-value">12.8x</div>
+                    <div class="kpi-trend positive">↑ Très performant</div>
                 </div>
-                <div class="kpi-card">
-                    <div class="label">Panier Moyen</div>
-                    <div class="value">44.14 EUR</div>
-                    <div class="trend">Stable</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="label">Nouveaux Utilisateurs</div>
-                    <div class="value">27 766</div>
-                    <div class="trend positive">50% du trafic</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="label">Taux de Rebond Moyen</div>
-                    <div class="value">33.96%</div>
-                    <div class="trend positive">Bon</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="label">Taux Abandon Panier</div>
-                    <div class="value">60.15%</div>
-                    <div class="trend negative">A optimiser</div>
+                <div class="kpi-card fade-in delay-5">
+                    <div class="kpi-icon">🛍️</div>
+                    <div class="kpi-label">Panier moyen</div>
+                    <div class="kpi-value">44.14 €</div>
+                    <div class="kpi-trend neutral">→ Stable</div>
                 </div>
             </div>
         </section>
 
-        <!-- Data Storytelling -->
-        <section class="story-section">
-            <h2 class="section-title">L'Histoire du Q4 2025</h2>
-            <div class="story-timeline">
-                <div class="story-month">
-                    <div class="month-icon">SEPT</div>
-                    <h4>La Rentree</h4>
-                    <p>Demarrage solide avec 14 250 sessions. Collection rentree bien accueillie.</p>
-                    <div class="revenue-tag">145 650 EUR</div>
-                </div>
-                <div class="story-month">
-                    <div class="month-icon">OCT</div>
-                    <h4>Creux Saisonnier</h4>
-                    <p>Baisse attendue (-23% sessions). Periode de transition avant les fetes.</p>
-                    <div class="revenue-tag">137 930 EUR</div>
-                </div>
-                <div class="story-month">
-                    <div class="month-icon">NOV</div>
-                    <h4>Black Friday</h4>
-                    <p>Pic majeur ! +82% de sessions. 25-30 Nov = 107 000 EUR de CA.</p>
-                    <div class="revenue-tag">271 500 EUR</div>
-                </div>
-                <div class="story-month">
-                    <div class="month-icon">DEC</div>
-                    <h4>Fetes de Fin d'Annee</h4>
-                    <p>Maintien du momentum. Cadeaux de Noel en forte demande.</p>
-                    <div class="revenue-tag">204 500 EUR</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Graphiques principaux -->
-        <div class="charts-grid">
+        <!-- ========================================
+             3. ÉVOLUTION TEMPORELLE
+        ======================================== -->
+        <section class="section">
+            <h2 class="section-title">Évolution du chiffre d'affaires & trafic</h2>
             <div class="chart-card">
-                <h3>Evolution Mensuelle - Sessions & Revenus</h3>
                 <div class="chart-container">
+                    <div class="chart-annotation">📍 Black Friday</div>
                     <canvas id="evolutionChart"></canvas>
                 </div>
             </div>
-            <div class="chart-card">
-                <h3>Performance par Canal d'Acquisition</h3>
-                <div class="chart-container">
-                    <canvas id="channelsChart"></canvas>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <!-- Funnel de conversion -->
-        <section class="funnel-section">
-            <h2 class="section-title">Funnel de Conversion E-commerce</h2>
-            <div class="funnel-container">
-                <div class="funnel-step">
-                    <div class="funnel-bar">114 475</div>
-                    <div class="funnel-label">Vues Produits</div>
-                    <div class="funnel-rate">100%</div>
+        <!-- ========================================
+             4. FUNNEL DE CONVERSION
+        ======================================== -->
+        <section class="section">
+            <h2 class="section-title">Parcours d'achat — Funnel de conversion</h2>
+            <div class="funnel-section">
+                <div class="funnel-container">
+                    <div class="funnel-step">
+                        <div class="funnel-label">Vues produit</div>
+                        <div class="funnel-bar-wrapper">
+                            <div class="funnel-bar" style="width: 100%;">114 475</div>
+                        </div>
+                        <div class="funnel-percent">100%</div>
+                        <div class="funnel-drop"></div>
+                    </div>
+                    <div class="funnel-step">
+                        <div class="funnel-label">Ajout au panier</div>
+                        <div class="funnel-bar-wrapper">
+                            <div class="funnel-bar" style="width: 37.7%;">43 183</div>
+                        </div>
+                        <div class="funnel-percent">37.7%</div>
+                        <div class="funnel-drop">-62.3%</div>
+                    </div>
+                    <div class="funnel-step">
+                        <div class="funnel-label">Info livraison</div>
+                        <div class="funnel-bar-wrapper">
+                            <div class="funnel-bar" style="width: 18.6%;">21 348</div>
+                        </div>
+                        <div class="funnel-percent">18.6%</div>
+                        <div class="funnel-drop">-50.6%</div>
+                    </div>
+                    <div class="funnel-step">
+                        <div class="funnel-label">Achat finalisé</div>
+                        <div class="funnel-bar-wrapper">
+                            <div class="funnel-bar" style="width: 15%;">17 209</div>
+                        </div>
+                        <div class="funnel-percent">15.0%</div>
+                        <div class="funnel-drop">-19.4%</div>
+                    </div>
                 </div>
-                <span class="funnel-arrow">→</span>
-                <div class="funnel-step">
-                    <div class="funnel-bar">43 183</div>
-                    <div class="funnel-label">Ajouts Panier</div>
-                    <div class="funnel-rate">37.7% des vues</div>
-                </div>
-                <span class="funnel-arrow">→</span>
-                <div class="funnel-step">
-                    <div class="funnel-bar">21 348</div>
-                    <div class="funnel-label">Infos Livraison</div>
-                    <div class="funnel-rate">49.4% du panier</div>
-                </div>
-                <span class="funnel-arrow">→</span>
-                <div class="funnel-step">
-                    <div class="funnel-bar">17 209</div>
-                    <div class="funnel-label">Achats</div>
-                    <div class="funnel-rate">39.9% du panier</div>
+                <div class="funnel-insight">
+                    <p>💡 <strong>Point de friction majeur :</strong> 50.6% des utilisateurs abandonnent entre l'ajout au panier et les informations de livraison. Cela suggère des frais de port dissuasifs ou un processus trop complexe.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Petits graphiques -->
-        <div class="small-charts-grid">
-            <div class="small-chart-card">
-                <h3>Repartition par Device</h3>
-                <div class="small-chart-container">
-                    <canvas id="devicesChart"></canvas>
+        <!-- ========================================
+             5. SOURCES & DEVICES
+        ======================================== -->
+        <section class="section">
+            <div class="two-columns">
+                <div class="chart-card">
+                    <h3>📣 Sources de trafic</h3>
+                    <div class="small-chart-container">
+                        <canvas id="channelsChart"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div class="small-chart-card">
-                <h3>Revenus Homme vs Femme</h3>
-                <div class="small-chart-container">
-                    <canvas id="genderChart"></canvas>
-                </div>
-            </div>
-            <div class="small-chart-card">
-                <h3>ROAS par Mois</h3>
-                <div class="small-chart-container">
-                    <canvas id="roasChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tableau comparatif -->
-        <section class="chart-card" style="margin-bottom: 40px;">
-            <h3>Tableau Comparatif Mensuel</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Metrique</th>
-                        <th>Septembre</th>
-                        <th>Octobre</th>
-                        <th>Novembre</th>
-                        <th>Decembre</th>
-                        <th>Total Q4</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Sessions</strong></td>
-                        <td>14 250</td>
-                        <td>10 963</td>
-                        <td>19 930</td>
-                        <td>19 010</td>
-                        <td><strong>64 153</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Utilisateurs</strong></td>
-                        <td>11 290</td>
-                        <td>9 723</td>
-                        <td>18 000</td>
-                        <td>16 510</td>
-                        <td><strong>55 523</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Achats</strong></td>
-                        <td>3 485</td>
-                        <td>2 779</td>
-                        <td>6 085</td>
-                        <td>4 860</td>
-                        <td><strong>17 209</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>CA Net</strong></td>
-                        <td>145 650 EUR</td>
-                        <td>137 930 EUR</td>
-                        <td>271 500 EUR</td>
-                        <td>204 500 EUR</td>
-                        <td><strong>759 580 EUR</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cout Pub</strong></td>
-                        <td>8 585 EUR</td>
-                        <td>11 190 EUR</td>
-                        <td>22 300 EUR</td>
-                        <td>17 140 EUR</td>
-                        <td><strong>59 215 EUR</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>ROAS</strong></td>
-                        <td>16.97x</td>
-                        <td>12.33x</td>
-                        <td>12.18x</td>
-                        <td>11.93x</td>
-                        <td><strong>12.83x</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Taux Conv.</strong></td>
-                        <td>24.46%</td>
-                        <td>25.35%</td>
-                        <td>30.53%</td>
-                        <td>25.57%</td>
-                        <td><strong>26.82%</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Insights -->
-        <section class="insights-section">
-            <h2 class="section-title">Insights & Analyses</h2>
-            <div class="insights-grid">
-                <div class="insight-card success">
-                    <h4>Black Friday Exceptionnel</h4>
-                    <p>La periode du 25-30 novembre a genere <strong>107 000 EUR</strong> en 6 jours, soit 14% du CA trimestriel. Les sessions ont atteint un pic de 1 200/jour (vs moyenne de 520). L'investissement publicitaire accru a ete tres rentable.</p>
-                </div>
-                <div class="insight-card success">
-                    <h4>ROAS Tres Performant</h4>
-                    <p>Un ROAS de <strong>12.83x</strong> indique une excellente rentabilite publicitaire. Chaque euro investi en publicite genere pres de 13 EUR de revenus. La strategie d'acquisition est efficace.</p>
-                </div>
-                <div class="insight-card warning">
-                    <h4>Abandon Panier Eleve</h4>
-                    <p>Le taux d'abandon panier de <strong>60.15%</strong> represente un manque a gagner significatif. Sur les 43 183 ajouts au panier, 25 974 n'ont pas abouti a un achat. Potentiel de recuperation important.</p>
-                </div>
-                <div class="insight-card">
-                    <h4>Mobile Dominant</h4>
-                    <p><strong>60.6%</strong> du trafic provient du mobile. Cette tendance confirme l'importance d'une experience mobile optimisee. Le desktop represente 38.7% et la tablette seulement 5.8%.</p>
-                </div>
-                <div class="insight-card warning">
-                    <h4>Creux d'Octobre</h4>
-                    <p>Octobre montre une baisse de <strong>23%</strong> des sessions vs septembre. Cette periode de transition entre rentree et fetes est typique du retail. Opportunite d'animer cette periode creuse.</p>
-                </div>
-                <div class="insight-card success">
-                    <h4>Equilibre Homme/Femme</h4>
-                    <p>La repartition des revenus est quasi equilibree : <strong>52% Homme</strong> vs <strong>48% Femme</strong>. Les deux segments sont performants, permettant une strategie marketing diversifiee.</p>
+                <div class="chart-card">
+                    <h3>💻 Répartition par appareil</h3>
+                    <div class="small-chart-container">
+                        <canvas id="devicesChart"></canvas>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Recommandations -->
-        <section class="recommendations-section">
-            <h2 class="section-title">Recommandations Strategiques</h2>
-            <div class="recommendations-list">
-                <div class="recommendation-item">
-                    <h4><span class="rec-number">1</span> Reduire l'Abandon Panier</h4>
-                    <p><strong>Objectif :</strong> Passer de 60% a 45% d'abandon panier (+15% de conversions potentielles).<br>
-                    <strong>Actions :</strong> Implementer des emails de relance panier abandonne (sequence 1h, 24h, 72h), simplifier le checkout a 3 etapes max, afficher les frais de livraison des la page produit, proposer la livraison gratuite au-dessus de 50 EUR.</p>
-                </div>
-                <div class="recommendation-item">
-                    <h4><span class="rec-number">2</span> Capitaliser sur le SEO</h4>
-                    <p><strong>Objectif :</strong> Augmenter la part du SEO de 35% a 45% du trafic pour reduire la dependance aux ads.<br>
-                    <strong>Actions :</strong> Optimiser les fiches produits avec des mots-cles longue traine, creer du contenu blog (guides de style, tendances), ameliorer la vitesse de chargement mobile (Core Web Vitals).</p>
-                </div>
-                <div class="recommendation-item">
-                    <h4><span class="rec-number">3</span> Animer la Periode Creuse d'Octobre</h4>
-                    <p><strong>Objectif :</strong> Reduire la baisse saisonniere d'octobre de 23% a 10%.<br>
-                    <strong>Actions :</strong> Lancer une operation "Ventes Privees Pre-Hiver", proposer des offres early-bird pour les fetes, creer une campagne "Nouvelle Collection Automne" avec teasing sur les reseaux sociaux.</p>
-                </div>
-                <div class="recommendation-item">
-                    <h4><span class="rec-number">4</span> Optimiser l'Experience Mobile</h4>
-                    <p><strong>Objectif :</strong> Augmenter le taux de conversion mobile de 5 points.<br>
-                    <strong>Actions :</strong> Implementer Apple Pay et Google Pay pour un checkout rapide, optimiser les images pour le mobile, ajouter un sticky "Add to Cart" button, reduire le nombre de champs du formulaire.</p>
-                </div>
-                <div class="recommendation-item">
-                    <h4><span class="rec-number">5</span> Developper le Canal Email</h4>
-                    <p><strong>Objectif :</strong> Tripler la contribution email de 5% a 15% du trafic.<br>
-                    <strong>Actions :</strong> Collecter plus d'emails via pop-up -10% premiere commande, segmenter la base (Homme/Femme, VIP, Dormants), automatiser les workflows (bienvenue, anniversaire, reactivation), newsletter hebdomadaire avec contenu inspire.</p>
+        <!-- ========================================
+             6. SEGMENT HOMME/FEMME
+        ======================================== -->
+        <section class="section">
+            <h2 class="section-title">Performance par segment</h2>
+            <div class="gender-section">
+                <div class="gender-comparison">
+                    <div class="gender-card">
+                        <div class="gender-icon">👔</div>
+                        <div class="gender-label">Homme</div>
+                        <div class="gender-revenue">396 200 €</div>
+                        <div class="gender-percent">52%</div>
+                        <div class="gender-detail">6 940 articles vendus</div>
+                    </div>
+                    <div class="gender-vs">VS</div>
+                    <div class="gender-card">
+                        <div class="gender-icon">👗</div>
+                        <div class="gender-label">Femme</div>
+                        <div class="gender-revenue">378 600 €</div>
+                        <div class="gender-percent">48%</div>
+                        <div class="gender-detail">6 489 articles vendus</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Methodologie -->
-        <section class="methodology-section">
-            <h2 class="section-title">Methodologie de Nettoyage des Donnees</h2>
-            <div class="methodology-content">
-                <div class="methodology-item">
-                    <h4>Sources des Donnees</h4>
-                    <ul>
-                        <li>Export GA4 simule - 4 feuilles mensuelles</li>
-                        <li>29 colonnes de metriques par jour</li>
-                        <li>Periode : 1er Sept - 31 Dec 2025</li>
-                        <li>123 jours de donnees analysees</li>
-                    </ul>
-                </div>
-                <div class="methodology-item">
-                    <h4>Traitement des Donnees</h4>
-                    <ul>
-                        <li>Agregation journaliere vers mensuelle</li>
-                        <li>Sommes pour metriques cumulatives</li>
-                        <li>Moyennes pour taux et pourcentages</li>
-                        <li>Verification coherence inter-metriques</li>
-                    </ul>
-                </div>
-                <div class="methodology-item">
-                    <h4>Anomalies Detectees</h4>
-                    <ul>
-                        <li>Pic Black Friday (25-30 Nov) : attendu</li>
-                        <li>Revenus >2 ecarts-types : 6 jours</li>
-                        <li>Sessions >2 ecarts-types : 4 jours</li>
-                        <li>Aucune donnee manquante ou corrompue</li>
-                    </ul>
-                </div>
-                <div class="methodology-item">
-                    <h4>Calculs Effectues</h4>
-                    <ul>
-                        <li>Taux conv. = achats / sessions x 100</li>
-                        <li>ROAS = CA net / cout pub</li>
-                        <li>Panier moyen = CA net / achats</li>
-                        <li>Taux abandon = (panier - achats) / panier</li>
-                    </ul>
+        <!-- ========================================
+             7. TABLEAU RÉCAPITULATIF
+        ======================================== -->
+        <section class="section">
+            <h2 class="section-title">Récapitulatif mensuel</h2>
+            <div class="table-section">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Métrique</th>
+                            <th>Septembre</th>
+                            <th>Octobre</th>
+                            <th>Novembre</th>
+                            <th>Décembre</th>
+                            <th>Total Q4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sessions</td>
+                            <td>14 250</td>
+                            <td class="highlight-worst">10 963</td>
+                            <td class="highlight-best">19 930</td>
+                            <td>19 010</td>
+                            <td><strong>64 153</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Utilisateurs</td>
+                            <td>11 290</td>
+                            <td class="highlight-worst">9 723</td>
+                            <td class="highlight-best">18 000</td>
+                            <td>16 510</td>
+                            <td><strong>55 523</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Achats</td>
+                            <td>3 485</td>
+                            <td class="highlight-worst">2 779</td>
+                            <td class="highlight-best">6 085</td>
+                            <td>4 860</td>
+                            <td><strong>17 209</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Chiffre d'affaires</td>
+                            <td>145 650 €</td>
+                            <td class="highlight-worst">137 930 €</td>
+                            <td class="highlight-best">271 500 €</td>
+                            <td>204 500 €</td>
+                            <td><strong>759 580 €</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Coût publicitaire</td>
+                            <td>8 585 €</td>
+                            <td>11 190 €</td>
+                            <td class="highlight-worst">22 300 €</td>
+                            <td>17 140 €</td>
+                            <td><strong>59 215 €</strong></td>
+                        </tr>
+                        <tr>
+                            <td>ROAS</td>
+                            <td class="highlight-best">16.97x</td>
+                            <td>12.33x</td>
+                            <td>12.18x</td>
+                            <td class="highlight-worst">11.93x</td>
+                            <td><strong>12.83x</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Taux de conversion</td>
+                            <td>24.46%</td>
+                            <td class="highlight-worst">25.35%</td>
+                            <td class="highlight-best">30.53%</td>
+                            <td>25.57%</td>
+                            <td><strong>26.82%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Taux de rebond</td>
+                            <td class="highlight-best">32.14%</td>
+                            <td class="highlight-worst">36.89%</td>
+                            <td>31.15%</td>
+                            <td>35.66%</td>
+                            <td><strong>33.96%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ========================================
+             8. RECOMMANDATIONS
+        ======================================== -->
+        <section class="section">
+            <div class="recommendations-section">
+                <h2 class="section-title">💡 Recommandations stratégiques</h2>
+                <div class="recommendations-grid">
+                    <div class="recommendation-card priority-high">
+                        <div class="recommendation-header">
+                            <span class="recommendation-number">1</span>
+                            <span class="recommendation-tag">Priorité haute</span>
+                        </div>
+                        <h4 class="recommendation-title">Réduire l'abandon panier</h4>
+                        <div class="recommendation-content">
+                            <p><strong>Constat :</strong> 60% des paniers sont abandonnés, principalement à l'étape livraison (-50.6%).</p>
+                            <p><strong>Données :</strong> 25 974 paniers non convertis = potentiel de 1.1M € de CA additionnel.</p>
+                            <span class="recommendation-action">→ Livraison gratuite dès 50 €, emails relance automatisés</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-growth">
+                        <div class="recommendation-header">
+                            <span class="recommendation-number">2</span>
+                            <span class="recommendation-tag">Croissance</span>
+                        </div>
+                        <h4 class="recommendation-title">Capitaliser sur le SEO</h4>
+                        <div class="recommendation-content">
+                            <p><strong>Constat :</strong> Le SEO représente 35% du trafic avec le meilleur ROI (coût = 0 €).</p>
+                            <p><strong>Données :</strong> 22 566 sessions organiques sur le trimestre.</p>
+                            <span class="recommendation-action">→ Optimiser fiches produits, créer du contenu blog mode</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-optimize">
+                        <div class="recommendation-header">
+                            <span class="recommendation-number">3</span>
+                            <span class="recommendation-tag">Optimisation</span>
+                        </div>
+                        <h4 class="recommendation-title">Dynamiser la période creuse d'octobre</h4>
+                        <div class="recommendation-content">
+                            <p><strong>Constat :</strong> Octobre affiche -23% de sessions et le CA le plus bas du trimestre.</p>
+                            <p><strong>Données :</strong> 137 930 € vs 271 500 € en novembre (-49%).</p>
+                            <span class="recommendation-action">→ Ventes privées "Pré-Hiver", early-bird fêtes de fin d'année</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-high">
+                        <div class="recommendation-header">
+                            <span class="recommendation-number">4</span>
+                            <span class="recommendation-tag">Priorité haute</span>
+                        </div>
+                        <h4 class="recommendation-title">Optimiser l'expérience mobile</h4>
+                        <div class="recommendation-content">
+                            <p><strong>Constat :</strong> 60.6% du trafic provient du mobile, mais le tunnel de conversion est-il optimisé ?</p>
+                            <p><strong>Données :</strong> 38 834 sessions mobiles sur le trimestre.</p>
+                            <span class="recommendation-action">→ Apple Pay / Google Pay, sticky "Ajouter au panier"</span>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-growth">
+                        <div class="recommendation-header">
+                            <span class="recommendation-number">5</span>
+                            <span class="recommendation-tag">Croissance</span>
+                        </div>
+                        <h4 class="recommendation-title">Développer le canal email</h4>
+                        <div class="recommendation-content">
+                            <p><strong>Constat :</strong> L'email ne représente que 7.7% du trafic mais offre un fort potentiel de fidélisation.</p>
+                            <p><strong>Données :</strong> 4 968 sessions email → objectif 15% du trafic.</p>
+                            <span class="recommendation-action">→ Pop-up -10% première commande, newsletters hebdomadaires</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>Dashboard Analytics Q4 2025 - Marque de Pret-a-Porter | Donnees GA4 simulees | Genere le 16 Janvier 2026</p>
+    <!-- ========================================
+         9. FOOTER MÉTHODOLOGIE
+    ======================================== -->
+    <footer class="methodology-footer">
+        <div class="container">
+            <h2 class="section-title">📋 Méthodologie</h2>
+            <div class="methodology-grid">
+                <div class="methodology-item">
+                    <h4>📊 Sources des données</h4>
+                    <ul>
+                        <li>Export GA4 simulé</li>
+                        <li>4 feuilles mensuelles (Sept-Déc)</li>
+                        <li>29 colonnes de métriques</li>
+                        <li>123 jours analysés</li>
+                    </ul>
+                </div>
+                <div class="methodology-item">
+                    <h4>🔧 Traitement</h4>
+                    <ul>
+                        <li>Agrégation journalière → mensuelle</li>
+                        <li>Sommes pour métriques cumulatives</li>
+                        <li>Moyennes pour taux et pourcentages</li>
+                        <li>Vérification cohérence inter-métriques</li>
+                    </ul>
+                </div>
+                <div class="methodology-item">
+                    <h4>⚠️ Anomalies détectées</h4>
+                    <ul>
+                        <li>Pic Black Friday (25-30 Nov)</li>
+                        <li>6 jours revenus > 2 écarts-types</li>
+                        <li>4 jours sessions > 2 écarts-types</li>
+                        <li>Aucune donnée manquante</li>
+                    </ul>
+                </div>
+                <div class="methodology-item">
+                    <h4>🧮 Calculs effectués</h4>
+                    <ul>
+                        <li>Taux conv. = achats / sessions × 100</li>
+                        <li>ROAS = CA net / coût pub</li>
+                        <li>Panier moyen = CA net / achats</li>
+                        <li>Taux abandon = (panier - achats) / panier</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                Dashboard Analytics Q4 2025 — Marque de Prêt-à-Porter | Généré le 16 janvier 2026
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Données agrégées par mois
+        // ========================================
+        // DONNÉES
+        // ========================================
         const monthlyData = {
             "Septembre": {
-                sessions: 14250, users: 11290, new_users: 5589, pageviews: 39880, events: 70880,
-                view_item: 21660, add_to_cart: 7250, remove_cart: 1661, add_shipping: 4634,
-                add_payment: 3648, purchases: 3485, items_qty: 6940, discount: 8180,
-                net_revenue: 145650, seo_sessions: 3485, ads_sessions: 6591, meta_sessions: 5420,
-                email_sessions: 510, direct_sessions: 903, mobile_sessions: 6350,
-                desktop_sessions: 3343, tablet_sessions: 620, homme_revenue: 73450,
-                femme_revenue: 73450, ads_cost: 8585, bounce_rate: 0.3214, exit_rate: 0.0915,
-                add_to_cart_rate: 0.3177
+                sessions: 14250, users: 11290, new_users: 5589, pageviews: 39880,
+                view_item: 21660, add_to_cart: 7250, purchases: 3485,
+                net_revenue: 145650, seo_sessions: 3485, ads_sessions: 6591,
+                meta_sessions: 5420, email_sessions: 510, direct_sessions: 903,
+                mobile_sessions: 6350, desktop_sessions: 3343, tablet_sessions: 620,
+                homme_revenue: 73450, femme_revenue: 73450, ads_cost: 8585
             },
             "Octobre": {
-                sessions: 10963, users: 9723, new_users: 4927, pageviews: 33475, events: 53490,
-                view_item: 21265, add_to_cart: 8143, remove_cart: 1916, add_shipping: 3959,
-                add_payment: 3639, purchases: 2779, items_qty: 5300, discount: 6260,
-                net_revenue: 137930, seo_sessions: 4286, ads_sessions: 3655, meta_sessions: 1935,
-                email_sessions: 1014, direct_sessions: 2304, mobile_sessions: 5854,
-                desktop_sessions: 5176, tablet_sessions: 770, homme_revenue: 75550,
-                femme_revenue: 63200, ads_cost: 11190, bounce_rate: 0.3689, exit_rate: 0.1222,
-                add_to_cart_rate: 0.3752
+                sessions: 10963, users: 9723, new_users: 4927, pageviews: 33475,
+                view_item: 21265, add_to_cart: 8143, purchases: 2779,
+                net_revenue: 137930, seo_sessions: 4286, ads_sessions: 3655,
+                meta_sessions: 1935, email_sessions: 1014, direct_sessions: 2304,
+                mobile_sessions: 5854, desktop_sessions: 5176, tablet_sessions: 770,
+                homme_revenue: 75550, femme_revenue: 63200, ads_cost: 11190
             },
             "Novembre": {
-                sessions: 19930, users: 18000, new_users: 9000, pageviews: 63260, events: 100450,
-                view_item: 39430, add_to_cart: 15610, remove_cart: 3317, add_shipping: 7155,
-                add_payment: 6465, purchases: 6085, items_qty: 12330, discount: 13900,
-                net_revenue: 271500, seo_sessions: 6550, ads_sessions: 10750, meta_sessions: 11510,
-                email_sessions: 1915, direct_sessions: 4670, mobile_sessions: 14870,
-                desktop_sessions: 9970, tablet_sessions: 1340, homme_revenue: 144300,
-                femme_revenue: 139200, ads_cost: 22300, bounce_rate: 0.3115, exit_rate: 0.1009,
-                add_to_cart_rate: 0.393
+                sessions: 19930, users: 18000, new_users: 9000, pageviews: 63260,
+                view_item: 39430, add_to_cart: 15610, purchases: 6085,
+                net_revenue: 271500, seo_sessions: 6550, ads_sessions: 10750,
+                meta_sessions: 11510, email_sessions: 1915, direct_sessions: 4670,
+                mobile_sessions: 14870, desktop_sessions: 9970, tablet_sessions: 1340,
+                homme_revenue: 144300, femme_revenue: 139200, ads_cost: 22300
             },
             "Décembre": {
-                sessions: 19010, users: 16510, new_users: 8250, pageviews: 50430, events: 84600,
-                view_item: 32120, add_to_cart: 12180, remove_cart: 2672, add_shipping: 5600,
-                add_payment: 4960, purchases: 4860, items_qty: 9650, discount: 10920,
-                net_revenue: 204500, seo_sessions: 8245, ads_sessions: 10850, meta_sessions: 8425,
-                email_sessions: 1529, direct_sessions: 4025, mobile_sessions: 11760,
-                desktop_sessions: 6260, tablet_sessions: 975, homme_revenue: 102900,
-                femme_revenue: 102750, ads_cost: 17140, bounce_rate: 0.3566, exit_rate: 0.1129,
-                add_to_cart_rate: 0.3741
+                sessions: 19010, users: 16510, new_users: 8250, pageviews: 50430,
+                view_item: 32120, add_to_cart: 12180, purchases: 4860,
+                net_revenue: 204500, seo_sessions: 8245, ads_sessions: 10850,
+                meta_sessions: 8425, email_sessions: 1529, direct_sessions: 4025,
+                mobile_sessions: 11760, desktop_sessions: 6260, tablet_sessions: 975,
+                homme_revenue: 102900, femme_revenue: 102750, ads_cost: 17140
             }
         };
 
         const months = ['Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        // Palette de couleurs du design.md
         const colors = {
-            primary: '#1e3a5f',
-            primaryLight: '#2d5a8a',
-            accent: '#0ea5e9',
-            green: '#10b981',
-            orange: '#f59e0b',
-            purple: '#8b5cf6',
-            red: '#ef4444'
+            accent: '#e94560',
+            secondary: '#0f3460',
+            turquoise: '#00d9c0',
+            gold: '#f39c12',
+            violet: '#9b59b6',
+            success: '#10b981'
         };
 
-        // Chart 1: Evolution mensuelle Sessions & Revenus
+        // ========================================
+        // CHART 1: Évolution Sessions & Revenus
+        // ========================================
         const evolutionCtx = document.getElementById('evolutionChart').getContext('2d');
         new Chart(evolutionCtx, {
             type: 'line',
@@ -955,22 +1234,43 @@
                 labels: months,
                 datasets: [
                     {
-                        label: 'Sessions',
-                        data: months.map(m => monthlyData[m].sessions),
+                        label: 'Chiffre d\'affaires (€)',
+                        data: months.map(m => monthlyData[m].net_revenue),
                         borderColor: colors.accent,
                         backgroundColor: colors.accent + '20',
-                        tension: 0.3,
+                        borderWidth: 3,
+                        tension: 0.4,
                         fill: true,
-                        yAxisID: 'y'
+                        yAxisID: 'y1',
+                        pointRadius: 6,
+                        pointBackgroundColor: colors.accent,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
                     },
                     {
-                        label: 'Revenus (EUR)',
-                        data: months.map(m => monthlyData[m].net_revenue),
-                        borderColor: colors.green,
-                        backgroundColor: colors.green + '20',
-                        tension: 0.3,
-                        fill: true,
-                        yAxisID: 'y1'
+                        label: 'Sessions',
+                        data: months.map(m => monthlyData[m].sessions),
+                        borderColor: colors.secondary,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        yAxisID: 'y',
+                        pointRadius: 6,
+                        pointBackgroundColor: colors.secondary,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    },
+                    {
+                        label: 'Nouveaux utilisateurs',
+                        data: months.map(m => monthlyData[m].new_users),
+                        borderColor: colors.turquoise,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        yAxisID: 'y',
+                        pointRadius: 4,
+                        pointBackgroundColor: colors.turquoise
                     }
                 ]
             },
@@ -979,12 +1279,24 @@
                 maintainAspectRatio: false,
                 interaction: { intersect: false, mode: 'index' },
                 plugins: {
-                    legend: { position: 'top' },
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20,
+                            font: { family: 'Inter', size: 12 }
+                        }
+                    },
                     tooltip: {
+                        backgroundColor: 'rgba(26, 26, 46, 0.95)',
+                        titleFont: { family: 'Inter', size: 14, weight: '600' },
+                        bodyFont: { family: 'Inter', size: 13 },
+                        padding: 16,
+                        cornerRadius: 8,
                         callbacks: {
                             label: function(ctx) {
-                                if (ctx.dataset.label === 'Revenus (EUR)') {
-                                    return ctx.dataset.label + ': ' + ctx.raw.toLocaleString('fr-FR') + ' EUR';
+                                if (ctx.dataset.label.includes('€')) {
+                                    return ctx.dataset.label + ': ' + ctx.raw.toLocaleString('fr-FR') + ' €';
                                 }
                                 return ctx.dataset.label + ': ' + ctx.raw.toLocaleString('fr-FR');
                             }
@@ -996,46 +1308,56 @@
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        title: { display: true, text: 'Sessions' }
+                        title: { display: true, text: 'Sessions / Utilisateurs', font: { family: 'Inter' } },
+                        grid: { color: 'rgba(0,0,0,0.05)' }
                     },
                     y1: {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        title: { display: true, text: 'Revenus (EUR)' },
+                        title: { display: true, text: 'Chiffre d\'affaires (€)', font: { family: 'Inter' } },
                         grid: { drawOnChartArea: false }
+                    },
+                    x: {
+                        grid: { display: false }
                     }
                 }
             }
         });
 
-        // Chart 2: Canaux d'acquisition
+        // ========================================
+        // CHART 2: Sources de trafic (barres horizontales)
+        // ========================================
         const channelsCtx = document.getElementById('channelsChart').getContext('2d');
         const totalSessions = {
             SEO: months.reduce((acc, m) => acc + monthlyData[m].seo_sessions, 0),
-            Ads: months.reduce((acc, m) => acc + monthlyData[m].ads_sessions, 0),
-            Meta: months.reduce((acc, m) => acc + monthlyData[m].meta_sessions, 0),
-            Email: months.reduce((acc, m) => acc + monthlyData[m].email_sessions, 0),
-            Direct: months.reduce((acc, m) => acc + monthlyData[m].direct_sessions, 0)
+            'Google Ads': months.reduce((acc, m) => acc + monthlyData[m].ads_sessions, 0),
+            'Meta Ads': months.reduce((acc, m) => acc + monthlyData[m].meta_sessions, 0),
+            Direct: months.reduce((acc, m) => acc + monthlyData[m].direct_sessions, 0),
+            Email: months.reduce((acc, m) => acc + monthlyData[m].email_sessions, 0)
         };
 
         new Chart(channelsCtx, {
             type: 'bar',
             data: {
-                labels: ['SEO', 'Google Ads', 'Meta Ads', 'Email', 'Direct'],
+                labels: Object.keys(totalSessions),
                 datasets: [{
-                    label: 'Sessions Q4',
-                    data: [totalSessions.SEO, totalSessions.Ads, totalSessions.Meta, totalSessions.Email, totalSessions.Direct],
-                    backgroundColor: [colors.green, colors.accent, colors.purple, colors.orange, colors.primary],
-                    borderRadius: 8
+                    data: Object.values(totalSessions),
+                    backgroundColor: [colors.success, colors.accent, colors.violet, colors.secondary, colors.gold],
+                    borderRadius: 6,
+                    barThickness: 30
                 }]
             },
             options: {
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false },
                     tooltip: {
+                        backgroundColor: 'rgba(26, 26, 46, 0.95)',
+                        padding: 12,
+                        cornerRadius: 8,
                         callbacks: {
                             label: function(ctx) {
                                 const total = Object.values(totalSessions).reduce((a, b) => a + b, 0);
@@ -1046,112 +1368,63 @@
                     }
                 },
                 scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Sessions' } }
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: { font: { family: 'Inter' } }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Inter', weight: '500' } }
+                    }
                 }
             }
         });
 
-        // Chart 3: Devices
+        // ========================================
+        // CHART 3: Devices (donut)
+        // ========================================
         const devicesCtx = document.getElementById('devicesChart').getContext('2d');
         const totalDevices = {
             Mobile: months.reduce((acc, m) => acc + monthlyData[m].mobile_sessions, 0),
             Desktop: months.reduce((acc, m) => acc + monthlyData[m].desktop_sessions, 0),
-            Tablet: months.reduce((acc, m) => acc + monthlyData[m].tablet_sessions, 0)
+            Tablette: months.reduce((acc, m) => acc + monthlyData[m].tablet_sessions, 0)
         };
 
         new Chart(devicesCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Mobile', 'Desktop', 'Tablet'],
+                labels: ['📱 Mobile', '💻 Desktop', '📟 Tablette'],
                 datasets: [{
-                    data: [totalDevices.Mobile, totalDevices.Desktop, totalDevices.Tablet],
-                    backgroundColor: [colors.accent, colors.primary, colors.orange],
-                    borderWidth: 0
+                    data: Object.values(totalDevices),
+                    backgroundColor: [colors.accent, colors.secondary, colors.gold],
+                    borderWidth: 0,
+                    cutout: '65%'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' },
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 16,
+                            font: { family: 'Inter', size: 12 }
+                        }
+                    },
                     tooltip: {
+                        backgroundColor: 'rgba(26, 26, 46, 0.95)',
+                        padding: 12,
+                        cornerRadius: 8,
                         callbacks: {
                             label: function(ctx) {
                                 const total = Object.values(totalDevices).reduce((a, b) => a + b, 0);
                                 const pct = ((ctx.raw / total) * 100).toFixed(1);
-                                return ctx.label + ': ' + pct + '%';
+                                return ctx.raw.toLocaleString('fr-FR') + ' sessions (' + pct + '%)';
                             }
                         }
-                    }
-                }
-            }
-        });
-
-        // Chart 4: Revenus H/F
-        const genderCtx = document.getElementById('genderChart').getContext('2d');
-        const totalGender = {
-            Homme: months.reduce((acc, m) => acc + monthlyData[m].homme_revenue, 0),
-            Femme: months.reduce((acc, m) => acc + monthlyData[m].femme_revenue, 0)
-        };
-
-        new Chart(genderCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Homme', 'Femme'],
-                datasets: [{
-                    data: [totalGender.Homme, totalGender.Femme],
-                    backgroundColor: [colors.primary, colors.purple],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(ctx) {
-                                return ctx.label + ': ' + ctx.raw.toLocaleString('fr-FR') + ' EUR';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        // Chart 5: ROAS par mois
-        const roasCtx = document.getElementById('roasChart').getContext('2d');
-        const roasData = months.map(m => (monthlyData[m].net_revenue / monthlyData[m].ads_cost).toFixed(2));
-
-        new Chart(roasCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Sept', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'ROAS',
-                    data: roasData,
-                    backgroundColor: [colors.green, colors.orange, colors.accent, colors.primary],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(ctx) {
-                                return 'ROAS: ' + ctx.raw + 'x';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'ROAS (x)' }
                     }
                 }
             }
